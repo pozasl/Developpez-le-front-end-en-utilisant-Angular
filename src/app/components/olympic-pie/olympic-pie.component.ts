@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Olympic } from 'src/app/core/models/Olympic';
 
 @Component({
   selector: 'app-olympic-pie',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './olympic-pie.component.scss'
 })
 export class OlympicPieComponent {
-
+  @Input() olympics: Olympic[] | null = [];
+  
 }
