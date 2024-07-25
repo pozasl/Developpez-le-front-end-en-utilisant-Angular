@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --olympic-green: rgb(4 131 143 / 100%);
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    font-family: RobotoDraft, Roboto, "Helvetica Neue, Helvetica, Arial", sans-serif;
+    height: auto;
+    margin: 0;
+    min-height: 100vh;
+}
+
+ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+    .tooltip-caret.position-top {
+        border-top-color: var(--olympic-green);
+    }
+
+    background-color: var(--olympic-green);
+    border-radius: 0.6em;
+}
+
+div.tooltipMedals{
+    margin: 0.5em;
+}
+
+
+div.tooltipMedals> svg {
+    path{
+        fill:white;
+    }
+    display: inline-block;
+    width: 1em;
+    position: relative;
+    top: 0.15em;
+    margin-right: 0.25em;
+}
+
+div.tooltipCountry {
+    margin: 0.5em;
+}

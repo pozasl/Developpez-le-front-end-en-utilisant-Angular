@@ -14,13 +14,26 @@ import { AsyncPipe } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
+  josNbr: Number = 0;
+  countriesNbr: Number = 0;
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe(o => {
-      
+    this.olympics$.subscribe((ols)=> {
+      if (ols !== null) {
+        this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
+        this.countriesNbr = ols.length
+      }
+      else {
+        this.josNbr = 0;
+        this.countriesNbr = 0;
+      }
     })
+  }
+
+  onCountrySelect(countryName: string): void {
+    console.log(countryName);
   }
 }
