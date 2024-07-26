@@ -4,6 +4,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicPieComponent } from 'src/app/components/olympic-pie/olympic-pie.component';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
   josNbr: Number = 0;
   countriesNbr: Number = 0;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  onCountrySelect(countryName: string): void {
-    console.log(countryName);
+  onCountrySelect(countryNbr: number): void {
+    console.log(countryNbr);
+    this.router.navigate(['/details/' + countryNbr]);
   }
 }
