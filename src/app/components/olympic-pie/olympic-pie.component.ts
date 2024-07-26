@@ -15,7 +15,7 @@ export class OlympicPieComponent {
    this.chartData = (ol !== null) ? ol.map(this.convertOlympicToPieChartData) : []
   }
   @Output()
-  countrySelectEvent = new EventEmitter<string>();
+  countrySelectEvent = new EventEmitter<number>();
 
   // options
   gradient: boolean = true;
@@ -32,13 +32,14 @@ export class OlympicPieComponent {
   convertOlympicToPieChartData(olympic: Olympic): PieChartData {
     return Object.assign({
       name: olympic.country,
-      value: olympic.participations.reduce((tot, current) => tot + current.medalsCount, 0)
+      value: olympic.participations.reduce((tot, current) => tot + current.medalsCount, 0),
+      extra: { id: olympic.id}
     }) as PieChartData
   }
   
-  onSelect(data:any): void {
+  onSelect(data:PieChartData): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-    this.countrySelectEvent.emit(data.name);
+    this.countrySelectEvent.emit(data.extra.id);
   }
 
   // onActivate(data:any): void {
