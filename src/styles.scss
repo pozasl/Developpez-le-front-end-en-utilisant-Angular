@@ -1,19 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     --olympic-green: rgb(4 131 143 / 100%);
-  }
+}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-body {
-    font-family: RobotoDraft, Roboto, "Helvetica Neue, Helvetica, Arial", sans-serif;
-    height: auto;
-    margin: 0;
-    min-height: 100vh;
+* {
+    box-sizing: border-box; 
 }
 
-header, section, footer {
+body {
+    font-family: RobotoDraft, Roboto, "Helvetica Neue, Helvetica, Arial", sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
     text-align: center;
+}
+
+// header, footer {
+//     border:solid 1px magenta;
+// }
+// section {
+//     border:solid 1px cyan;
+// }
+
+header, footer {
+    padding: 1em;
 }
 
 h1 {
@@ -28,6 +41,7 @@ h1 {
 
 section.dashboardCounter {
     display: flex;
+    flex: 1;
     flex-wrap: wrap;
 }
 
@@ -35,10 +49,10 @@ section.dashboardCounter > p {
     flex: 1 1 150px;
     border: solid 0.2em var(--olympic-green);
     border-radius: 0.4em;
-    margin: 1em;
+    margin: 0 1em 1em;
     display: grid;
     padding: 0.5em;
-    color: dimgray;
+    color: gray;
 
 }
 
@@ -74,4 +88,23 @@ div.tooltipMedals> svg {
 
 div.tooltipCountry {
     margin: 0.5em;
+}
+
+a.goBackBtn {
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    background-color: var(--olympic-green);
+    color: white;
+    border-radius: 0.4em;
+    font-weight: normal;
+    margin: 0.5em;
+    text-decoration: none;
+}
+
+a.goBackBtn:hover {
+    border: solid 0.2em var(--olympic-green);
+    color: var(--olympic-green);
+    border-radius: 0.4em;
+    margin: 0.3em;
+    background-color: white;
 }
