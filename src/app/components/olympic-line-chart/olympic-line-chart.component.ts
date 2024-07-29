@@ -15,7 +15,6 @@ export class OlympicLineChartComponent {
     if (ol !== null)
     {
       this.lineChartData = [this.convertOlympicToLineChartData(ol)];
-      console.log(this.multi);
     }
     else
       this.lineChartData = [];

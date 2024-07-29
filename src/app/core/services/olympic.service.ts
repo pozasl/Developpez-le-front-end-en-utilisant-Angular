@@ -31,7 +31,6 @@ export class OlympicService {
    * @returns an observable list of Olympic or null
    */
   getOlympics(): Observable<Olympic[] | null> {
-    console.log("olps[]");
     return this.olympics$.asObservable();
   }
 
