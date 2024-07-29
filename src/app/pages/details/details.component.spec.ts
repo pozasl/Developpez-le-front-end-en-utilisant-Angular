@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBedStatic } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { DetailsComponent } from './details.component';
-// import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 // import { RouterTestingModule } from '@angular/router/testing';
-import { TestBedInitializer } from 'src/test';
 
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
 
-  let TestBed:TestBedStatic;
-  beforeAll(() => {
-    TestBed = TestBedInitializer.getTestBed();
-  });
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailsComponent]
+      imports: [DetailsComponent, RouterTestingModule],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
@@ -28,4 +23,12 @@ describe('DetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title as No country selected when the country\'s id does not exists', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    // console.log(compiled.innerHTML);
+    expect(compiled.querySelector('h1')?.textContent).toContain('No country selected');
+  });
+
 });
