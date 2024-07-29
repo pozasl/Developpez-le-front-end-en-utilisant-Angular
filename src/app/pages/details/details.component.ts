@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { AsyncPipe } from '@angular/common';
 import { OlympicLineChartComponent } from 'src/app/components/olympic-line-chart/olympic-line-chart.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [AsyncPipe, OlympicLineChartComponent],
+  imports: [ RouterLink, OlympicLineChartComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
