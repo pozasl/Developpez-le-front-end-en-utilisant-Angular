@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
   imports: [AsyncPipe, OlympicPieComponent],
   styleUrls: ['./home.component.scss'],
 })
+/**
+ * Default olympic dashboard page
+ */
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
   josNbr: Number = 0;

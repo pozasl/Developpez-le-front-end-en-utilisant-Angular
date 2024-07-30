@@ -7,6 +7,9 @@ import { OlympicService } from './core/services/olympic.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+/**
+ * Olympic App root component
+ */
 export class AppComponent implements OnInit {
   title: string = 'olympic-games-starter';
   constructor(private olympicService: OlympicService) { }

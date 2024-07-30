@@ -11,6 +11,9 @@ import { DataUtil } from 'src/app/core/utils/DataUtil';
   templateUrl: './olympic-line-chart.component.html',
   styleUrl: './olympic-line-chart.component.scss'
 })
+/**
+ * Display a line chart from a country's olympic data
+ */
 export class OlympicLineChartComponent {
   @Input() set olympic(ol:Olympic | null) {
     if (ol !== null)

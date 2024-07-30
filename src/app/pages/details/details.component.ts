@@ -12,6 +12,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
+/**
+ * Selected country's olympic details page
+ */
 export class DetailsComponent implements OnInit{
   @Input() countryId: number = -1 ;
   olympics$: Observable<Olympic[] | null> = of(null);
@@ -24,8 +27,6 @@ export class DetailsComponent implements OnInit{
   error:boolean = false;
   errorMsg:string = "";
 
-
-  // Service dependencie by contructor injection
   constructor(private olympicService: OlympicService) { }
 
   ngOnInit(): void {
