@@ -9,16 +9,23 @@ import { OlympicService } from './core/services/olympic.service';
 })
 export class AppComponent implements OnInit {
   title: string = 'olympic-games-starter';
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService) { }
+
 
   ngOnInit(): void {
-    const sub = this.olympicService.loadInitialData().pipe(take(1)).subscribe(
-      () => {
-        console.log("loaded");
-        sub.unsubscribe();
-      }
-    );
+    console.log("dafuq !");
+    const sub = this.olympicService.loadInitialData().pipe(take(1)).subscribe({
+      next: (olps) => {
+        console.log("data loaded", olps);
+        console.log("unsub !");
 
+      },
+      error: (e) => console.error(e),
+      complete: () => {
+        console.info('complete')
+        
+      }
+    });
   }
 
 }

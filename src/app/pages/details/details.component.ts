@@ -35,11 +35,11 @@ export class DetailsComponent implements OnInit{
             this.entriesNbr = ol.participations.length;
             this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
             this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
-            console.log("DONE !",  this.olympic)
             break;
           };
         }
     })
+    sub.unsubscribe();
   }
 
 }

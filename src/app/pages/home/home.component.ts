@@ -25,27 +25,29 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe((ols)=> {
-      if (ols !== null) {
-        this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
-        this.countriesNbr = ols.length
-      }
-      else {
-        this.josNbr = 0;
-        this.countriesNbr = 0;
-      }
-      this.loading = false;
-    })
+    const sub = this.olympics$.subscribe({
+      next: (ols)=> {
+        console.log(ols)
+        if (ols !== null) {
+          this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
+          this.countriesNbr = ols.length
+          this.error = false;
+        }
+
+        // this.loading = false;
+      },
+      error: (e) => {
+        console.log(e)
+        this.errorMsg = "Error feching data";
+        this.error = true;
+      },
+      complete: () => console.log("got my data :)")
+    });
+    
   }
 
   onCountrySelect(countryNbr: number): void {
-    console.log(countryNbr);
     this.router.navigate(['/details/' + countryNbr]);
   }
 
-
-  onLoadingError():void {
-    this.errorMsg = "Error, couldn't load data";
-    this.error = true;
-  }
 }
