@@ -34,18 +34,4 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  // /**
-  //  * Get an olympic by its id
-  //  * @param id 
-  //  * @returns an Olympic or null observable
-  //  */
-  // getOlympicByCountryId(id: number):Observable<Olympic | null> {
-  //   return this.olympics$.    pipe(map(olps => {
-  //     console.log("olps", olps);
-  //     if (olps)
-  //       for (let olp of olps)
-  //         if (olp.id === id) return olp;
-  //     return null;
-  //   }));
-  // }
 }

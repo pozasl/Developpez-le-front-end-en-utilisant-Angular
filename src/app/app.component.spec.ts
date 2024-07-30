@@ -33,10 +33,6 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  // beforeEach(() => {
-  //   router = TestBed.inject(Router);
-  //   router.initialNavigation();
-  // })
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -57,13 +53,4 @@ describe('AppComponent', () => {
     expect(olympicServiceStub.loadInitialData).toHaveBeenCalled();
   })
 
-
-  // Not an App component TU
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   console.log(compiled.innerHTML);
-  //   expect(compiled.querySelector('h1')?.textContent).toContain('Medals per Country');
-  // });
 });
