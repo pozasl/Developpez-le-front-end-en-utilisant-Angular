@@ -20,26 +20,40 @@ export class DetailsComponent implements OnInit{
   entriesNbr: number = 0;
   totalMedalsNbr: number = 0
   totalAthletesNbr: number = 0
+  loading:boolean = true;
+  error:boolean = false;
+  errorMsg:string = "";
+
 
   // Service dependencie by contructor injection
   constructor(private olympicService: OlympicService) { }
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    const sub = this.olympics$.subscribe((ols) => {
-      if (this.countryId!== -1 && ols !== null)
-        for (let ol of ols) {
-          if (ol.id == this.countryId) {
-            this.olympic = ol;
-            this.countryName = ol.country;
-            this.entriesNbr = ol.participations.length;
-            this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
-            this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
-            break;
-          };
-        }
+    const sub = this.olympics$.subscribe({
+      next: (ols)=> {
+          if (this.countryId!== -1 && ols !== null)
+            for (let ol of ols) {
+              if (ol.id == this.countryId) {
+                this.olympic = ol;
+                this.countryName = ol.country;
+                this.entriesNbr = ol.participations.length;
+                this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
+                this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
+                break;
+              };
+            }
+          else {
+            this.errorMsg = "Unknown country id";
+            this.error = true;
+          }
+        this.loading = false;
+      },
+      error: (e) => {
+        this.errorMsg = "Error feching data";
+        this.error = true;
+      },
     })
-    sub.unsubscribe();
   }
 
 }

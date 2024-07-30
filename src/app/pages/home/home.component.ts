@@ -27,21 +27,17 @@ export class HomeComponent implements OnInit {
     this.olympics$ = this.olympicService.getOlympics();
     const sub = this.olympics$.subscribe({
       next: (ols)=> {
-        console.log(ols)
         if (ols !== null) {
           this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
           this.countriesNbr = ols.length
           this.error = false;
         }
-
-        // this.loading = false;
+        this.loading = false;
       },
       error: (e) => {
-        console.log(e)
         this.errorMsg = "Error feching data";
         this.error = true;
       },
-      complete: () => console.log("got my data :)")
     });
     
   }

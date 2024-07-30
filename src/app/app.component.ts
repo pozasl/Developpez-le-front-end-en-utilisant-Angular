@@ -13,18 +13,11 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("dafuq !");
     const sub = this.olympicService.loadInitialData().pipe(take(1)).subscribe({
       next: (olps) => {
-        console.log("data loaded", olps);
-        console.log("unsub !");
-
+        console.info("Olympic data loaded");
       },
       error: (e) => console.error(e),
-      complete: () => {
-        console.info('complete')
-        
-      }
     });
   }
 

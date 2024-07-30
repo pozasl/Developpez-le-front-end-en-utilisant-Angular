@@ -8,13 +8,12 @@ import { Olympic } from 'src/app/core/models/Olympic';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olympic2.json';
+  private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[] | null>(null);
 
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
-    console.log("dafuq !")
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap({
         next: (value) => this.olympics$.next(value),
@@ -23,8 +22,7 @@ export class OlympicService {
           // console.error(error);
           // can be useful to end loading state and let the user know something went wrong
           this.olympics$.error(error);
-        },
-        complete: () => console.log("service loading complete")
+        }
       })
     );
   }
