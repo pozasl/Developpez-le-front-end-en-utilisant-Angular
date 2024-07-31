@@ -25,8 +25,8 @@ describe('OlympicService', () => {
     });
   });
 
-  it('.getOlympics should return an Olympics Observable when datas are loaded', async() => {
-    
+  it('.getOlympics should return an Olympics Observable when datas are loaded', async () => {
+
     const olps$ = service.loadInitialData().pipe(take(1)).pipe(tap(
       () => {
         return service.getOlympics()
@@ -37,8 +37,8 @@ describe('OlympicService', () => {
     })
   });
 
-  it('getOlympics should return a Null Observable when datas are not loaded', async() => {
-    
+  it('getOlympics should return a Null Observable when datas are not loaded', async () => {
+
     const olps$ = service.getOlympics()
 
     olps$.subscribe((olps) => {
