@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { OlympicLineChartComponent } from 'src/app/components/olympic-line-chart/olympic-line-chart.component';
+import { OlympicLineChartComponent } from 'src/app/components/charts/olympic-line-chart/olympic-line-chart.component';
 import { RouterLink } from '@angular/router';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { OlympicPieComponent } from 'src/app/components/olympic-pie/olympic-pie.component';
+import { OlympicPieChartComponent } from 'src/app/components/charts/olympic-pie/olympic-pie-chart.component';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   standalone: true,
   selector: 'app-home',
   templateUrl: './home.component.html',
-  imports: [AsyncPipe, OlympicPieComponent],
+  imports: [AsyncPipe, OlympicPieChartComponent],
   styleUrls: ['./home.component.scss'],
 })
 /**

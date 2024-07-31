@@ -4,7 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
-import { OlympicPieComponent } from './components/olympic-pie/olympic-pie.component';
+import { OlympicPieChartComponent } from './components/charts/olympic-pie/olympic-pie-chart.component';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
       imports: [
         AppRoutingModule,
         HomeComponent,
-        OlympicPieComponent
+        OlympicPieChartComponent
       ],
       declarations: [
         AppComponent,

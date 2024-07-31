@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OlympicPieComponent } from './olympic-pie.component';
+import { OlympicPieChartComponent } from './olympic-pie-chart.component';
 import { Olympic } from 'src/app/core/models/Olympic';
 
-describe('OlympicPieComponent', () => {
-  let component: OlympicPieComponent;
-  let fixture: ComponentFixture<OlympicPieComponent>;
+describe('OlympicPieChartComponent', () => {
+  let component: OlympicPieChartComponent;
+  let fixture: ComponentFixture<OlympicPieChartComponent>;
   const olympics: Olympic[] = [
     {
       id: 1,
@@ -73,11 +73,11 @@ describe('OlympicPieComponent', () => {
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
-      imports: [OlympicPieComponent]
+      imports: [OlympicPieChartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OlympicPieComponent);
+    fixture = TestBed.createComponent(OlympicPieChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

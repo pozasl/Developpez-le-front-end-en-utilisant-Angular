@@ -8,13 +8,13 @@ import { DataUtil } from 'src/app/core/utils/DataUtil';
   selector: 'app-olympic-pie',
   standalone: true,
   imports: [NgxChartsModule],
-  templateUrl: './olympic-pie.component.html',
-  styleUrl: './olympic-pie.component.scss'
+  templateUrl: './olympic-pie-chart.component.html',
+  styleUrl: './olympic-pie-chart.component.scss'
 })
 /**
  * Display a PieChart from Olympic data and emit selected country's id
  */
-export class OlympicPieComponent {
+export class OlympicPieChartComponent {
   @Input() set olympics(ol: Olympic[] | null) {
    this.chartData = (ol !== null) ? ol.map(DataUtil.convertOlympicToPieChartData) : []
   }
