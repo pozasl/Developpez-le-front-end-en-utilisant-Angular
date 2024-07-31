@@ -1,0 +1,8 @@
+<footer>
+    @if ((notification$ | async) !== null) {
+        <p [class]="(notification$ | async)?.type">{{ (notification$ | async)?.message }}</p>
+    }
+    @if (showBackButton) {
+        <a routerLink="" class="goBackBtn">Go back</a>
+    }    
+</footer>
