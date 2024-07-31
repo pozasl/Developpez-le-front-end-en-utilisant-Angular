@@ -5,25 +5,27 @@ import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicPieChartComponent } from 'src/app/components/charts/olympic-pie/olympic-pie-chart.component';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { OlympicHeaderComponent } from 'src/app/components/ui/olympic-header/olympic-header.component';
+import { OlympicFooterComponent } from 'src/app/components/ui/olympic-footer/olympic-footer.component';
+import { AppNotification, AppNotificationType, NotificationMessage } from 'src/app/core/models/AppNotification';
 
 @Component({
   standalone: true,
   selector: 'app-home',
   templateUrl: './home.component.html',
-  imports: [AsyncPipe, OlympicPieChartComponent],
+  imports: [AsyncPipe, OlympicHeaderComponent, OlympicFooterComponent, OlympicPieChartComponent],
   styleUrls: ['./home.component.scss'],
 })
 /**
  * Default olympic dashboard page
  */
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<Olympic[] | null> = of(null);
   josNbr: Number = 0;
   countriesNbr: Number = 0;
   loading: boolean = true;
+  notification?: AppNotification;
   error: boolean = false;
-  errorMsg: string = "No error";
-
+  public olympics$: Observable<Olympic[] | null> = of(null);
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
@@ -33,12 +35,11 @@ export class HomeComponent implements OnInit {
         if (ols !== null) {
           this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
           this.countriesNbr = ols.length
-          this.error = false;
         }
         this.loading = false;
       },
-      error: (e) => {
-        this.errorMsg = "Error feching data";
+      error: (e:Error) => {
+        this.notification = new AppNotification(AppNotificationType.Error, NotificationMessage.NoData);
         this.error = true;
       },
     });

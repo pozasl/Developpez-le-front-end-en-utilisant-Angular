@@ -3,17 +3,19 @@ import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { OlympicLineChartComponent } from 'src/app/components/charts/olympic-line-chart/olympic-line-chart.component';
-import { RouterLink } from '@angular/router';
+import { OlympicHeaderComponent } from 'src/app/components/ui/olympic-header/olympic-header.component';
+import { OlympicFooterComponent } from 'src/app/components/ui/olympic-footer/olympic-footer.component';
+import { AppNotification, AppNotificationType, NotificationMessage } from 'src/app/core/models/AppNotification';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [RouterLink, OlympicLineChartComponent],
+  imports: [OlympicHeaderComponent, OlympicFooterComponent, OlympicLineChartComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
 /**
- * Selected country's olympic details page
+ * Details page for selected country
  */
 export class DetailsComponent implements OnInit{
   @Input() countryId: number = -1 ;
@@ -25,7 +27,7 @@ export class DetailsComponent implements OnInit{
   totalAthletesNbr: number = 0
   loading:boolean = true;
   error:boolean = false;
-  errorMsg:string = "";
+  notification?:AppNotification;
 
   constructor(private olympicService: OlympicService) { }
 
@@ -34,6 +36,7 @@ export class DetailsComponent implements OnInit{
     const sub = this.olympics$.subscribe({
       next: (ols)=> {
           if (this.countryId!== -1 && ols !== null)
+          {
             for (let ol of ols) {
               if (ol.id == this.countryId) {
                 this.olympic = ol;
@@ -44,14 +47,17 @@ export class DetailsComponent implements OnInit{
                 break;
               };
             }
+            this.notification = undefined;
+            this.error = false;
+          }
           else {
-            this.errorMsg = "Unknown country id";
+            this.notification = new AppNotification(AppNotificationType.Error, NotificationMessage.WrongId);
             this.error = true;
           }
         this.loading = false;
       },
       error: (e) => {
-        this.errorMsg = "Error feching data";
+        this.notification = new AppNotification(AppNotificationType.Error, NotificationMessage.NoData);
         this.error = true;
       },
     })
