@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { provideHttpClient } from '@angular/common/http';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { Observable, of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
+import { AppNotificationType, NotificationMessage } from 'src/app/core/models/AppNotification';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -119,12 +120,47 @@ describe('HomeComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('section.dashboardCounter > p:last-of-type')?.textContent).toContain('Number of countries 3');
   });
+});
 
-  it('should set Counters to 0 if olympics Observable is null', () => {
-    component.olympics$ = of(null);
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Medals per Country');
+
+describe('HomeComponent with failing service', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let olympicServiceStub: Partial<OlympicService>;
+
+  beforeEach(async () => {
+    olympicServiceStub = {
+      getOlympics: jasmine.createSpy('getOlympics').and.returnValue(throwError(new Error("")))
+    };
+
+    await TestBed.configureTestingModule({
+      // declarations: [ HomeComponent ];
+      imports: [HomeComponent],
+      providers: [provideHttpClient(), { provide: OlympicService, useValue: olympicServiceStub }]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should be in error', () => {
+    expect(component.error).toBeTrue();
+  });
+
+  it('should have an error notification', () => {
+    expect(component.notification?.type).toEqual(AppNotificationType.Error);
+    expect(component.notification?.message).toEqual(NotificationMessage.NoData);
+  });
+
+  it('should set Counters to 0 with null olympics Observable  ', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('section.dashboardCounter > p:first-of-type')?.textContent).toContain('Number of JOs 0');
+    expect(compiled.querySelector('section.dashboardCounter > p:last-of-type')?.textContent).toContain('Number of countries 0');
+  });
 
 });

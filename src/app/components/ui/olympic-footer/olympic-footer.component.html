@@ -1,0 +1,8 @@
+<footer>
+    @if (notification) {
+        <p [class]="'msg' + notification.type">{{ notification.message }}</p>
+    }
+    @if (showBackButton) {
+        <a routerLink="" class="goBackBtn">Go back</a>
+    }    
+</footer>

@@ -1,10 +1,3 @@
-/*
-  {
-      "name": "Germany",
-      "value": 40632
-    }
-*/
-
 interface PieChartData {
   name: string;
   value: number;

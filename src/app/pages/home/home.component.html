@@ -1,25 +1,25 @@
-<header>
-    <h1>Medals per Country</h1>
-</header>
+<app-olympic-header
+    title="Medals per Country"
+></app-olympic-header>
 <!-- p>{{ (olympics$ | async)?.length }} data loaded</p -->
 <section class="dashboardCounter">
     <p>Number of JOs <span>{{josNbr}}</span></p>
     <p>Number of countries <span>{{countriesNbr}}</span></p>
 </section>
-<section class="dashboardChart">
-    @if (loading) {
-        <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
-    }
-    @else {
-        <app-olympic-pie
-            [olympics]="(olympics$ | async)"
-            (countrySelectEvent)="onCountrySelect($event)"
-        ></app-olympic-pie>
-    }
-    
-</section>
-<footer>
-    @if (error) {
-        <p class="errorMsg">{{errorMsg}}</p>
-    }
-</footer>
+@if (!error) {
+    <section class="dashboardChart">
+        @if (loading) {
+            <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
+        }
+        @else {
+            <app-olympic-pie
+                [olympics]="(olympics$ | async)"
+                (countrySelectEvent)="onCountrySelect($event)"
+            ></app-olympic-pie>
+        }
+
+    </section>
+}
+<app-olympic-footer
+    [notification]="notification"
+></app-olympic-footer>
