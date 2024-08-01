@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartData } from 'src/app/core/models/PieChartData';
+import { DataUtil } from 'src/app/core/utils/DataUtil';
 
 @Component({
   selector: 'app-olympic-pie',
@@ -12,7 +13,7 @@ import { PieChartData } from 'src/app/core/models/PieChartData';
 })
 export class OlympicPieComponent {
   @Input() set olympics(ol: Olympic[] | null) {
-   this.chartData = (ol !== null) ? ol.map(this.convertOlympicToPieChartData) : []
+   this.chartData = (ol !== null) ? ol.map(DataUtil.convertOlympicToPieChartData) : []
   }
   @Output()
   countrySelectEvent = new EventEmitter<number>();
@@ -28,14 +29,6 @@ export class OlympicPieComponent {
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-
-  convertOlympicToPieChartData(olympic: Olympic): PieChartData {
-    return Object.assign({
-      name: olympic.country,
-      value: olympic.participations.reduce((tot, current) => tot + current.medalsCount, 0),
-      extra: { id: olympic.id}
-    }) as PieChartData
-  }
   
   onSelect(data:PieChartData): void {
     this.countrySelectEvent.emit(data.extra.id);

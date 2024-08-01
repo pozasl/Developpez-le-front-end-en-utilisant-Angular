@@ -1,18 +1,38 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './pages/home/home.component';
+import { OlympicPieComponent } from './components/olympic-pie/olympic-pie.component';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { OlympicService } from './core/services/olympic.service';
 
 describe('AppComponent', () => {
+  let router: Router;
+  let olympicServiceStub = {
+    loadInitialData: jasmine.createSpy('loadInitialData').and.returnValue(of())
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        AppRoutingModule,
+        HomeComponent,
+        OlympicPieComponent
       ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
+      providers: [
+        provideHttpClient(),
+        { provide: OlympicService, useValue: olympicServiceStub }
+        
+      ]
     }).compileComponents();
   });
+
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -26,10 +46,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('olympic-games-starter');
   });
 
-  it('should render title', () => {
+  it('should load Olympics data at initialization', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('olympic-games-starter app is running!');
-  });
+    const app = fixture.componentInstance;
+    app.ngOnInit();
+    expect(olympicServiceStub.loadInitialData).toHaveBeenCalled();
+  })
+
 });

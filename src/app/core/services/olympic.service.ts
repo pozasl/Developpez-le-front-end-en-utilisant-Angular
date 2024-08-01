@@ -14,7 +14,7 @@ export class OlympicService {
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
-    return this.http.get<any>(this.olympicUrl).pipe(
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
         // TODO: improve error handling
@@ -34,18 +34,4 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  // /**
-  //  * Get an olympic by its id
-  //  * @param id 
-  //  * @returns an Olympic or null observable
-  //  */
-  // getOlympicByCountryId(id: number):Observable<Olympic | null> {
-  //   return this.olympics$.    pipe(map(olps => {
-  //     console.log("olps", olps);
-  //     if (olps)
-  //       for (let olp of olps)
-  //         if (olp.id === id) return olp;
-  //     return null;
-  //   }));
-  // }
 }

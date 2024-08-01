@@ -7,9 +7,16 @@
     <p>Number of countries <span>{{countriesNbr}}</span></p>
 </section>
 <section class="dashboardChart">
+    @if (loading) {
+        <h2>Loading ...</h2>
+    }
     <app-olympic-pie
         [olympics]="(olympics$ | async)"
         (countrySelectEvent)="onCountrySelect($event)"
     ></app-olympic-pie>
 </section>
-<footer></footer>
+<footer>
+    @if (error) {
+        <p class="errorMsg">{{errorMsg}}</p>
+    }
+</footer>

@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
   josNbr: Number = 0;
   countriesNbr: Number = 0;
+  loading: boolean = true;
+  error: boolean = false;
+  errorMsg: string = "No error";
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
@@ -31,11 +34,18 @@ export class HomeComponent implements OnInit {
         this.josNbr = 0;
         this.countriesNbr = 0;
       }
+      this.loading = false;
     })
   }
 
   onCountrySelect(countryNbr: number): void {
     console.log(countryNbr);
     this.router.navigate(['/details/' + countryNbr]);
+  }
+
+
+  onLoadingError():void {
+    this.errorMsg = "Error, couldn't load data";
+    this.error = true;
   }
 }
