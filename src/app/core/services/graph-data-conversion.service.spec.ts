@@ -1,10 +1,12 @@
-import { TestBed } from "@angular/core/testing";
-import { DataUtil } from "./DataUtil";
-import { Olympic } from "../models/Olympic";
-import { PieChartData } from "../models/PieChartData";
-import { LineChartData } from "../models/LineChartData";
+import { TestBed } from '@angular/core/testing';
 
-describe('DataUtil', () => {
+import { GraphDataConversionService } from './graph-data-conversion.service';
+import { PieChartData } from '../models/PieChartData';
+import { LineChartData } from '../models/LineChartData';
+import { Olympic } from '../models/Olympic';
+
+describe('GraphDataConversionService', () => {
+  let service: GraphDataConversionService;
   let olympic: Olympic = {
     id: 1,
     country: 'France',
@@ -27,8 +29,17 @@ describe('DataUtil', () => {
 
   } as Olympic;
 
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(GraphDataConversionService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
   it('should convert olympic to PieChartData ', () => {
-    const pcd: PieChartData = DataUtil.convertOlympicToPieChartData(olympic);
+    const pcd: PieChartData = service.convertOlympicToPieChartData(olympic);
     expect(pcd).toEqual(Object({
       name: 'France',
       value: 15,
@@ -39,7 +50,7 @@ describe('DataUtil', () => {
   })
 
   it('should convert olympic to LineChartData ', () => {
-    const lcd: LineChartData = DataUtil.convertOlympicToLineChartData(olympic);
+    const lcd: LineChartData = service.convertOlympicToLineChartData(olympic);
     expect(lcd).toEqual(Object({
       name: 'France',
       series: [
@@ -54,5 +65,4 @@ describe('DataUtil', () => {
       ]
     }) as LineChartData)
   })
-
-})
+});

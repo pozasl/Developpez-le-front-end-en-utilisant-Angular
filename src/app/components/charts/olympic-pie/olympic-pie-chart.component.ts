@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartData } from 'src/app/core/models/PieChartData';
-import { DataUtil } from 'src/app/core/utils/DataUtil';
+import { GraphDataConversionService } from 'src/app/core/services/graph-data-conversion.service';
 
 @Component({
   selector: 'app-olympic-pie',
@@ -16,7 +16,7 @@ import { DataUtil } from 'src/app/core/utils/DataUtil';
  */
 export class OlympicPieChartComponent {
   @Input() set olympics(ol: Olympic[] | null) {
-   this.chartData = (ol !== null) ? ol.map(DataUtil.convertOlympicToPieChartData) : []
+   this.chartData = (ol !== null) ? ol.map(this.conversionService.convertOlympicToPieChartData) : []
   }
   @Output()
   countrySelectEvent = new EventEmitter<number>();
@@ -29,6 +29,7 @@ export class OlympicPieChartComponent {
   legendPosition: string = 'below';
   chartData: PieChartData[] = [];
 
+  constructor(private conversionService:GraphDataConversionService) {}
   
   /**
    * PieChart's selection callback
