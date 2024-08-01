@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LineChartData, LineChartDataSerie } from 'src/app/core/models/LineChartData';
 import { Olympic } from 'src/app/core/models/Olympic';
+import { GraphDataConversionService } from 'src/app/core/services/graph-data-conversion.service';
 import { DataUtil } from 'src/app/core/utils/DataUtil';
 
 @Component({
@@ -18,11 +19,12 @@ export class OlympicLineChartComponent {
   @Input() set olympic(ol:Olympic | null) {
     if (ol !== null)
     {
-      this.lineChartData = [DataUtil.convertOlympicToLineChartData(ol)];
+      this.lineChartData = [this.conversionService.convertOlympicToLineChartData(ol)];
     }
     else
       this.lineChartData = [];
   }
+  constructor(private conversionService:GraphDataConversionService) {}
   // options
   legend: boolean = false;
   showLabels: boolean = true;
