@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartData } from 'src/app/core/models/PieChartData';
-import { DataUtil } from 'src/app/core/utils/DataUtil';
 import { GraphDataConversionService } from 'src/app/core/services/graph-data-conversion.service';
 
 @Component({

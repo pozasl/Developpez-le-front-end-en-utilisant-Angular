@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { LineChartData, LineChartDataSerie } from 'src/app/core/models/LineChartData';
+import { LineChartData } from 'src/app/core/models/LineChartData';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { GraphDataConversionService } from 'src/app/core/services/graph-data-conversion.service';
-import { DataUtil } from 'src/app/core/utils/DataUtil';
 
 @Component({
   selector: 'app-olympic-line-chart',
