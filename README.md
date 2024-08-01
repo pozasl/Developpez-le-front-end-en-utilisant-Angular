@@ -3,7 +3,7 @@
 # Télésport Olympic front-end
 
 This project is the Olympic's app front-end.
-It displays the medals won by the articipating countries in a Dashboard and other detailed informations on their participations.
+It displays the medals won by the participating countries in a Dashboard and other detailed informations on their participations.
 
 ## Technologies
 - TS
@@ -24,11 +24,11 @@ Application code: @pozasl
 &copy; DelivWeb
 
 ## Development environment
-For conveniance a devcontainer with NodeJS and Google-Chrome is provided.
+For convenience a devcontainer with NodeJS and Google-Chrome is provided.
 
 Otherwise you need to install nodejs and npm then run `npm instal`
 
-Run `ng serve` for a dev server. Navigate to `http://127.0.0.1:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server with hot reloading and navigate to `http://127.0.0.1:4200/`
 
 ## Building
 
