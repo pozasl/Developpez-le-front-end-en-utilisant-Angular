@@ -6,9 +6,10 @@
     <p>Number of JOs <span>{{josNbr}}</span></p>
     <p>Number of countries <span>{{countriesNbr}}</span></p>
 </section>
-<section>
+<section class="dashboardChart">
     <app-olympic-pie
         [olympics]="(olympics$ | async)"
         (countrySelectEvent)="onCountrySelect($event)"
     ></app-olympic-pie>
 </section>
+<footer></footer>

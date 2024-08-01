@@ -38,15 +38,6 @@ export class OlympicPieComponent {
   }
   
   onSelect(data:PieChartData): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
     this.countrySelectEvent.emit(data.extra.id);
   }
-
-  // onActivate(data:any): void {
-  //   console.log('Activate', JSON.parse(JSON.stringify(data)));
-  // }
-
-  // onDeactivate(data:any): void {
-  //   console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  // }
 }
