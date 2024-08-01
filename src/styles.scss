@@ -16,14 +16,8 @@ body {
     min-height: 100vh;
     flex-direction: column;
     text-align: center;
+    margin: 0;
 }
-
-// header, footer {
-//     border:solid 1px magenta;
-// }
-// section {
-//     border:solid 1px cyan;
-// }
 
 header, footer {
     padding: 1em;
@@ -43,6 +37,7 @@ section.dashboardCounter {
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    justify-content:center;
 }
 
 section.dashboardCounter > p {
@@ -107,4 +102,20 @@ a.goBackBtn:hover {
     border-radius: 0.4em;
     margin: 0.3em;
     background-color: white;
+}
+
+.errorMsg {
+    color: red;
+}
+
+.loadingMsg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6em;
+    // margin: 25vh 0;
+}
+
+.loadingMsg span{
+    margin: 1em;
 }

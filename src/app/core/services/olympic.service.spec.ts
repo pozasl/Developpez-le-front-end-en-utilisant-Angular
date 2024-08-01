@@ -29,22 +29,19 @@ describe('OlympicService', () => {
     
     const olps$ = service.loadInitialData().pipe(take(1)).pipe(tap(
       () => {
-        console.log("loaded");
         return service.getOlympics()
       }));
 
     olps$.subscribe((olps) => {
-      console.log("olps", olps);
       expect(olps.length).toEqual(5);
     })
   });
 
-  it('getOlympics should return an Null Observable when datas are not loaded', async() => {
+  it('getOlympics should return a Null Observable when datas are not loaded', async() => {
     
     const olps$ = service.getOlympics()
 
     olps$.subscribe((olps) => {
-      console.log("olps", olps);
       expect(olps).toBeNull();
     })
   });

@@ -8,12 +8,15 @@
 </section>
 <section class="dashboardChart">
     @if (loading) {
-        <h2>Loading ...</h2>
+        <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
     }
-    <app-olympic-pie
-        [olympics]="(olympics$ | async)"
-        (countrySelectEvent)="onCountrySelect($event)"
-    ></app-olympic-pie>
+    @else {
+        <app-olympic-pie
+            [olympics]="(olympics$ | async)"
+            (countrySelectEvent)="onCountrySelect($event)"
+        ></app-olympic-pie>
+    }
+    
 </section>
 <footer>
     @if (error) {

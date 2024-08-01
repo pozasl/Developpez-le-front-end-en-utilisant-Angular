@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
   imports: [AsyncPipe, OlympicPieComponent],
   styleUrls: ['./home.component.scss'],
 })
+/**
+ * Default olympic dashboard page
+ */
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
   josNbr: Number = 0;
@@ -25,27 +28,25 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe((ols)=> {
-      if (ols !== null) {
-        this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
-        this.countriesNbr = ols.length
-      }
-      else {
-        this.josNbr = 0;
-        this.countriesNbr = 0;
-      }
-      this.loading = false;
-    })
+    const sub = this.olympics$.subscribe({
+      next: (ols)=> {
+        if (ols !== null) {
+          this.josNbr = ols?.reduce((tot, ol) => tot > ol.participations.length ? tot : ol.participations.length, 0)
+          this.countriesNbr = ols.length
+          this.error = false;
+        }
+        this.loading = false;
+      },
+      error: (e) => {
+        this.errorMsg = "Error feching data";
+        this.error = true;
+      },
+    });
+    
   }
 
   onCountrySelect(countryNbr: number): void {
-    console.log(countryNbr);
     this.router.navigate(['/details/' + countryNbr]);
   }
 
-
-  onLoadingError():void {
-    this.errorMsg = "Error, couldn't load data";
-    this.error = true;
-  }
 }

@@ -8,8 +8,16 @@
     <p>Total number of athletes <span>{{ totalAthletesNbr }}</span></p>
 </section>
 <section class="dashboardChart">
-    <app-olympic-line-chart [olympic]="olympic"></app-olympic-line-chart>
+    @if (loading) {
+        <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
+    }
+    @else if (!error) {
+        <app-olympic-line-chart [olympic]="olympic"></app-olympic-line-chart>
+    }
 </section>
 <footer>
+    @if (error) {
+        <p class="errorMsg">{{errorMsg}}</p>
+    }
     <a routerLink="" class="goBackBtn">Go back</a>
 </footer>

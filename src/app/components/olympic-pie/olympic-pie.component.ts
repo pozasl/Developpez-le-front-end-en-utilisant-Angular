@@ -11,6 +11,9 @@ import { DataUtil } from 'src/app/core/utils/DataUtil';
   templateUrl: './olympic-pie.component.html',
   styleUrl: './olympic-pie.component.scss'
 })
+/**
+ * Display a PieChart from Olympic data and emit selected country's id
+ */
 export class OlympicPieComponent {
   @Input() set olympics(ol: Olympic[] | null) {
    this.chartData = (ol !== null) ? ol.map(DataUtil.convertOlympicToPieChartData) : []
@@ -26,10 +29,11 @@ export class OlympicPieComponent {
   legendPosition: string = 'below';
   chartData: PieChartData[] = [];
 
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
   
+  /**
+   * PieChart's selection callback
+   * @param data The selected PieChart data
+   */
   onSelect(data:PieChartData): void {
     this.countrySelectEvent.emit(data.extra.id);
   }

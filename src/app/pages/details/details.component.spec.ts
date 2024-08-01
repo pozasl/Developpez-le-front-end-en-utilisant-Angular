@@ -147,7 +147,4 @@ describe('DetailsComponent', () => {
     expect(compiled.querySelector('section.dashboardCounter > p:last-of-type')?.textContent).toContain('Total number of athletes 60');
   });
   
-  
-  
-
 });
