@@ -18,14 +18,15 @@ describe('OlympicService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('.loadInitialData should load Initial Data and return an Olympics Observable when datas are loaded', () => {
+  it('.loadInitialData should load Initial Data and return an Olympics Observable when datas are loaded', (done:DoneFn) => {
     const olympics = service.loadInitialData();
     olympics.subscribe((ols) => {
       expect(ols?.length).toEqual(5);
+      done();
     });
   });
 
-  it('.getOlympics should return an Olympics Observable when datas are loaded', async () => {
+  it('.getOlympics should return an Olympics Observable when datas are loaded', (done:DoneFn) => {
 
     const olps$ = service.loadInitialData().pipe(take(1)).pipe(tap(
       () => {
@@ -34,15 +35,17 @@ describe('OlympicService', () => {
 
     olps$.subscribe((olps) => {
       expect(olps.length).toEqual(5);
+      done();
     })
   });
 
-  it('getOlympics should return a Null Observable when datas are not loaded', async () => {
+  it('getOlympics should return a Null Observable when datas are not loaded', (done:DoneFn) => {
 
     const olps$ = service.getOlympics()
 
     olps$.subscribe((olps) => {
       expect(olps).toBeNull();
+      done();
     })
   });
 

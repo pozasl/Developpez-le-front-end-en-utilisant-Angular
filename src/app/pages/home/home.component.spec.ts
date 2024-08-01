@@ -100,9 +100,10 @@ describe('HomeComponent', () => {
     expect(olympicServiceStub.getOlympics).toHaveBeenCalled();
   })
 
-  it('should have olympics populated from observable', () => {
+  it('should have olympics populated from observable', (done:DoneFn) => {
     component.olympics$.subscribe(ols => {
       expect(ols).toBe(olympics);
+      done();
     });
   });
 
