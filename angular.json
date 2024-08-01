@@ -75,6 +75,9 @@
               "browserTarget": "olympic-games-starter:build:development"
             }
           },
+          "options": {
+                "host": "127.0.0.1"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -103,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

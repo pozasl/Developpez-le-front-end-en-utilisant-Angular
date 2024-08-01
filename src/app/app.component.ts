@@ -7,10 +7,22 @@ import { OlympicService } from './core/services/olympic.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+/**
+ * Olympic App root component
+ */
 export class AppComponent implements OnInit {
-  constructor(private olympicService: OlympicService) {}
+  title: string = 'olympic-games-starter';
+  constructor(private olympicService: OlympicService) { }
+
 
   ngOnInit(): void {
-    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+    // We take the 1st mutation for subscription. unsubscribe isn't needed.
+    this.olympicService.loadInitialData().pipe(take(1)).subscribe({
+      next: (olps) => {
+        console.info("Olympic data loaded");
+      },
+      error: (e) => console.error(e),
+    });
   }
+
 }
