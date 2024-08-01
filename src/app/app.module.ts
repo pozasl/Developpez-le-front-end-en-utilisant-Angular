@@ -7,8 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent, NotFoundComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, HomeComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

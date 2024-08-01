@@ -1,3 +1,14 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<header>
+    <h1>Medals per Country</h1>
+</header>
+<!-- p>{{ (olympics$ | async)?.length }} data loaded</p -->
+<section class="dashboardCounter">
+    <p>Number of JOs <span>{{josNbr}}</span></p>
+    <p>Number of countries <span>{{countriesNbr}}</span></p>
+</section>
+<section>
+    <app-olympic-pie
+        [olympics]="(olympics$ | async)"
+        (countrySelectEvent)="onCountrySelect($event)"
+    ></app-olympic-pie>
+</section>
