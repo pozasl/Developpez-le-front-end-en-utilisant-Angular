@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { find, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { NotificationMessage } from '../models/AppNotification';
 
@@ -12,17 +12,15 @@ export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[] | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap({
         next: (value) => this.olympics$.next(value),
         error: (error) => {
-          // TODO: improve error handling
-          // console.error(error);
-          // can be useful to end loading state and let the user know something went wrong
-          this.olympics$.error(error);
+          console.error(error);
+          throw new Error(NotificationMessage.NoData)
         }
       })
     );
@@ -38,17 +36,18 @@ export class OlympicService {
 
   /**
    * Get Olympic by its Id
-   * @param id 
-   * @returns 
+   * @param id
+   * @returns
    */
-  getOlympicById(id:number): Observable<Olympic> {
+  getOlympicById(id: number): Observable<Olympic> {
+    console.log("here->", this.olympics$.getValue());
     return this.getOlympics().pipe(map(
       (olps) => {
-        if (!olps)
+        if (olps === null)
           throw new Error(NotificationMessage.NoData)
-        const foundOlp = olps.find(olp => id === olp.id);
+        const foundOlp = olps.find(olp => id == olp.id);
         if (!foundOlp)
-          throw new Error(NotificationMessage.NoData)
+          throw new Error(NotificationMessage.WrongId)
         return foundOlp;
       }
     ));
