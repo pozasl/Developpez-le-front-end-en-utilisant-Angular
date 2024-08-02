@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CounterBoxData } from 'src/app/core/models/CounterBoxData';
 
 @Component({
   selector: 'app-olympic-counter-box',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './olympic-counter-box.component.scss'
 })
 export class OlympicCounterBoxComponent {
+  @Input() boxData?:CounterBoxData;
 
 }
