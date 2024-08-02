@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { OlympicLineChartComponent } from 'src/app/components/charts/olympic-line-chart/olympic-line-chart.component';
@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class DetailsComponent implements OnInit, OnDestroy {
   countryId: number = -1;
-  olympic$!: Observable<Olympic>;
+  olympic!: Olympic;
   countryName: string = "No country selected";
   entriesNbr: number = 0;
   totalMedalsNbr: number = 0
@@ -29,7 +29,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   error: boolean = false;
   notification?: AppNotification;
+  olympic$!: Observable<Olympic>;
   private subscriptions: Subscription[] = [];
+
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -38,22 +40,33 @@ export class DetailsComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.countryId = this.route.snapshot.params['id'];
+    this.countryId = this.route.snapshot.params['countryId'];
     this.olympic$ = this.olympicService.getOlympicById(this.countryId);
     this.subscriptions.push(this.olympic$.subscribe({
       next: (ol) => {
-        this.error = false;
-        this.countryName = ol.country;
-        this.entriesNbr = ol.participations.length;
-        this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
-        this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
+        console.log(ol);
+        this.displayOlympicDetails(ol);
       },
       error: (e) => {
-        this.notification = new AppNotification(AppNotificationType.Error, e.message);
-        this.error = true;
-
+        this.notifyError(e.message);
       },
-      complete: () => this.loading = false
     }));
+  }
+
+  private displayOlympicDetails(ol: Olympic): void {
+    this.olympic = ol;
+    this.loading = false;
+    this.error = false;
+    this.notification = undefined;
+    this.countryName = ol.country;
+    this.entriesNbr = ol.participations.length;
+    this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
+    this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
+  }
+
+  private notifyError(msg: NotificationMessage): void {
+    this.notification = new AppNotification(AppNotificationType.Error, msg);
+    this.error = true;
+    this.loading = false;
   }
 }
