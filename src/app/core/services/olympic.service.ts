@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { find, map, tap } from 'rxjs/operators';
 import { Olympic } from 'src/app/core/models/Olympic';
+import { NotificationMessage } from '../models/AppNotification';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,24 @@ export class OlympicService {
   getOlympics(): Observable<Olympic[] | null> {
     return this.olympics$.asObservable();
   }
+
+  /**
+   * Get Olympic by its Id
+   * @param id 
+   * @returns 
+   */
+  getOlympicById(id:number): Observable<Olympic> {
+    return this.getOlympics().pipe(map(
+      (olps) => {
+        if (!olps)
+          throw new Error(NotificationMessage.NoData)
+        const foundOlp = olps.find(olp => id === olp.id);
+        if (!foundOlp)
+          throw new Error(NotificationMessage.NoData)
+        return foundOlp;
+      }
+    ));
+  }
+
 
 }
