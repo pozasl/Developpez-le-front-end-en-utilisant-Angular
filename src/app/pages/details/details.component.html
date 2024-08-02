@@ -12,7 +12,7 @@
             <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
         }
         @else {
-            <app-olympic-line-chart [olympic]="olympic"></app-olympic-line-chart>
+            <app-olympic-line-chart [olympic]="olympic$ | async"></app-olympic-line-chart>
         }
     </section>
 }
