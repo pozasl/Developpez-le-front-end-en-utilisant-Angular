@@ -131,7 +131,7 @@ describe('HomeComponent with failing service', () => {
 
   beforeEach(async () => {
     olympicServiceStub = {
-      getOlympics: jasmine.createSpy('getOlympics').and.returnValue(throwError(new Error("")))
+      getOlympics: jasmine.createSpy('getOlympics').and.returnValue(throwError(() => new Error(NotificationMessage.NoData)))
     };
 
     await TestBed.configureTestingModule({
