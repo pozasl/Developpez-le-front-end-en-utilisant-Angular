@@ -6,11 +6,13 @@ import { OlympicLineChartComponent } from 'src/app/components/charts/olympic-lin
 import { OlympicHeaderComponent } from 'src/app/components/ui/olympic-header/olympic-header.component';
 import { OlympicFooterComponent } from 'src/app/components/ui/olympic-footer/olympic-footer.component';
 import { AppNotification, AppNotificationType, NotificationMessage } from 'src/app/core/models/AppNotification';
+import { AsyncPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [OlympicHeaderComponent, OlympicFooterComponent, OlympicLineChartComponent],
+  imports: [OlympicHeaderComponent, OlympicFooterComponent, OlympicLineChartComponent, AsyncPipe],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -18,9 +20,8 @@ import { AppNotification, AppNotificationType, NotificationMessage } from 'src/a
  * Details page for selected country
  */
 export class DetailsComponent implements OnInit, OnDestroy {
-  @Input() countryId: number = -1;
-  olympics$: Observable<Olympic[] | null> = of(null);
-  olympic: Olympic | null = null;
+  countryId: number = -1;
+  olympic$!: Observable<Olympic>;
   countryName: string = "No country selected";
   entriesNbr: number = 0;
   totalMedalsNbr: number = 0
@@ -34,37 +35,25 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  constructor(private olympicService: OlympicService) { }
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
-    this.subscriptions.push(this.olympics$.subscribe({
-      next: (ols) => {
-        if (this.countryId !== -1 && ols !== null) {
-          for (let ol of ols) {
-            if (ol.id == this.countryId) {
-              this.olympic = ol;
-              this.countryName = ol.country;
-              this.entriesNbr = ol.participations.length;
-              this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
-              this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
-              break;
-            };
-          }
-          this.notification = undefined;
-          this.error = false;
-        }
-        else {
-          this.notification = new AppNotification(AppNotificationType.Error, NotificationMessage.WrongId);
-          this.error = true;
-        }
-        this.loading = false;
+    this.countryId = this.route.snapshot.params['id'];
+    this.olympic$ = this.olympicService.getOlympicById(this.countryId);
+    this.subscriptions.push(this.olympic$.subscribe({
+      next: (ol) => {
+        this.error = false;
+        this.countryName = ol.country;
+        this.entriesNbr = ol.participations.length;
+        this.totalMedalsNbr = ol.participations.reduce((tot, p) => tot + p.medalsCount, 0);
+        this.totalAthletesNbr = ol.participations.reduce((tot, p) => tot + p.athleteCount, 0);
       },
       error: (e) => {
-        this.notification = new AppNotification(AppNotificationType.Error, NotificationMessage.NoData);
+        this.notification = new AppNotification(AppNotificationType.Error, e.message);
         this.error = true;
+
       },
+      complete: () => this.loading = false
     }));
   }
-
 }
