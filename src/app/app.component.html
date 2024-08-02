@@ -1,1 +1,18 @@
+@if(ready) {
 <router-outlet></router-outlet>
+}
+@else() {
+<div class="center">
+    @if(error) {
+    <p class="msgError">{{ message }}</p>
+    }
+    @else
+    {
+
+    <div class="loadingMsg">
+        <span>{{ message }}</span>
+        <div class="loader"></div>
+    </div>
+    }
+</div>
+}

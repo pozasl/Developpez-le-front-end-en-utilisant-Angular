@@ -1,22 +1,19 @@
-<app-olympic-header
-    [title]="countryName"
-></app-olympic-header>
+<app-olympic-header [title]="countryName"></app-olympic-header>
 <section class="dashboardCounter">
     <p>Number of entries <span>{{ entriesNbr }}</span></p>
     <p>Total number of medals <span>{{ totalMedalsNbr }}</span></p>
     <p>Total number of athletes <span>{{ totalAthletesNbr }}</span></p>
 </section>
 @if (!error) {
-    <section class="dashboardChart">
-        @if (loading) {
-            <div class="loadingMsg"><span>Loading</span><div class="loader"></div></div>
-        }
-        @else {
-            <app-olympic-line-chart [olympic]="olympic"></app-olympic-line-chart>
-        }
-    </section>
+<section class="dashboardChart">
+    @if (loading) {
+    <div class="loadingMsg"><span>Loading</span>
+        <div class="loader"></div>
+    </div>
+    }
+    @else {
+    <app-olympic-line-chart [olympic]="olympic$ | async"></app-olympic-line-chart>
+    }
+</section>
 }
-<app-olympic-footer
-    [notification]="notification"
-    [showBackButton]="true"
-></app-olympic-footer>
+<app-olympic-footer [notification]="notification" [showBackButton]="true"></app-olympic-footer>

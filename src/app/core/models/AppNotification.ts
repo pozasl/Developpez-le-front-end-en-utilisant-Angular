@@ -15,7 +15,8 @@ enum AppNotificationType {
 enum NotificationMessage {
     NoData = "Error fetching data",
     WrongId = "Unknown country id",
-    PageNotFound = "Error"
+    PageNotFound = "Error",
+    Loading = "Loading",
 }
 
 export {

@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
@@ -19,7 +19,8 @@ body {
     margin: 0;
 }
 
-header, footer {
+header,
+footer {
     padding: 1em;
 }
 
@@ -37,10 +38,10 @@ section.dashboardCounter {
     display: flex;
     flex: 1;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content: center;
 }
 
-section.dashboardCounter > p {
+section.dashboardCounter>p {
     flex: 1 1 150px;
     border: solid 0.2em var(--olympic-green);
     border-radius: 0.4em;
@@ -51,7 +52,7 @@ section.dashboardCounter > p {
 
 }
 
-section.dashboardCounter > p > span {
+section.dashboardCounter>p>span {
     font-weight: bold;
     color: black;
 }
@@ -65,15 +66,16 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     border-radius: 0.6em;
 }
 
-div.tooltipMedals{
+div.tooltipMedals {
     margin: 0.5em;
 }
 
 
-div.tooltipMedals> svg {
-    path{
-        fill:white;
+div.tooltipMedals>svg {
+    path {
+        fill: white;
     }
+
     display: inline-block;
     width: 1em;
     position: relative;
@@ -116,7 +118,7 @@ a.goBackBtn:hover {
     // margin: 25vh 0;
 }
 
-.loadingMsg span{
+.loadingMsg span {
     margin: 1em;
 }
 
@@ -126,4 +128,46 @@ a.goBackBtn:hover {
 
 .msgWarning {
     color: orange
-} 
+}
+
+.loader {
+    width: 2em;
+    aspect-ratio: 1;
+    display: grid;
+    border-radius: 50%;
+    background:
+        linear-gradient(0deg, rgb(4 131 143/50%) 30%, #0000 0 70%, rgb(4 131 143/100%) 0) 50%/8% 100%,
+        linear-gradient(90deg, rgb(4 131 143/25%) 30%, #0000 0 70%, rgb(4 131 143/75%) 0) 50%/100% 8%;
+    background-repeat: no-repeat;
+    animation: l23 1s infinite steps(12);
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.915;
+    transform: rotate(30deg);
+}
+
+.loader::after {
+    opacity: 0.83;
+    transform: rotate(60deg);
+}
+
+@keyframes l23 {
+    100% {
+        transform: rotate(1turn)
+    }
+}
+
+.center {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
