@@ -44,7 +44,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.olympic$ = this.olympicService.getOlympicById(this.countryId);
     this.subscriptions.push(this.olympic$.subscribe({
       next: (ol) => {
-        console.log(ol);
         this.displayOlympicDetails(ol);
       },
       error: (e) => {

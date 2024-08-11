@@ -11,7 +11,6 @@ import { OlympicService } from './core/services/olympic.service';
 import { NotificationMessage } from './core/models/AppNotification';
 
 describe('AppComponent', () => {
-  let router: Router;
   let olympicServiceStub = {
     loadInitialData: jasmine.createSpy('loadInitialData').and.returnValue(of(null))
   };
@@ -50,7 +49,7 @@ describe('AppComponent', () => {
   it(`should not be ready before initilization`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.ready).toBeFalse;
+    expect(app.ready).toBeFalse();
   });
 
   it('should load Olympics data at initialization', async () => {
