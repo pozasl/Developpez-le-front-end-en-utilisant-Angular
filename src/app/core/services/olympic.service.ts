@@ -40,7 +40,6 @@ export class OlympicService {
    * @returns
    */
   getOlympicById(id: number): Observable<Olympic> {
-    console.log("here->", this.olympics$.getValue());
     return this.getOlympics().pipe(map(
       (olps) => {
         if (olps === null)
