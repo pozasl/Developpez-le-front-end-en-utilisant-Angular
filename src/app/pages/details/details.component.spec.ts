@@ -1,5 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetailsComponent } from './details.component';
 import { provideHttpClient } from '@angular/common/http';
 import { Olympic } from 'src/app/core/models/Olympic';
