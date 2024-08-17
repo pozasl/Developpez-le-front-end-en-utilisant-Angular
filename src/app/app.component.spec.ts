@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { OlympicPieChartComponent } from './components/charts/olympic-pie/olympic-pie-chart.component';
-import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
 import { NotificationMessage } from './core/models/AppNotification';

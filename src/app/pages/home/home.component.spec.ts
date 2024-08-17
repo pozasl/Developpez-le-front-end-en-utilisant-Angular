@@ -135,7 +135,6 @@ describe('HomeComponent with failing service', () => {
     };
 
     await TestBed.configureTestingModule({
-      // declarations: [ HomeComponent ];
       imports: [HomeComponent],
       providers: [provideHttpClient(), { provide: OlympicService, useValue: olympicServiceStub }]
     }).compileComponents();
